@@ -49,6 +49,7 @@ def get_models_like():
             http_session.headers.update(headers1)
             http_session.adapters['https://'].max_retries = Retry.DEFAULT
             scraper = cloudscraper.create_scraper(sess=http_session,
+                                                  debug=True,
                                                   interpreter="nodejs",
                                                   delay=10,
                                                   browser={
