@@ -4,7 +4,6 @@ import cloudscraper as cloudscraper
 import requests
 import traceback
 
-
 app = Flask(__name__)
 
 
@@ -19,7 +18,7 @@ def get_models_like():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0',
         'Referer': 'https://chaturbate.com',
         'Host': 'chaturbate.com',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Accept-Language': 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
         'Accept-Encoding': 'gzip, deflate, br',
         'Connection': 'keep-alive',
@@ -49,7 +48,17 @@ def get_models_like():
         with requests.Session() as http_session:
             http_session.headers.update(headers1)
             http_session.adapters['https://'].max_retries = Retry.DEFAULT
-            scraper = cloudscraper.create_scraper(http_session)
+            scraper = cloudscraper.create_scraper(http_session,
+                                                  browser={
+                                                      'browser': 'chrome',
+                                                      'platform': 'windows',
+                                                      'desktop': True,
+                                                      'mobile': False,
+                                                  },
+                                                  captcha={
+                                                      'provider': '2captcha',
+                                                      'api_key': 'you_2captcha_api_key',
+                                                  })
 
             r = scraper.get("https://chaturbate.com/ohvivian/", timeout=(3.05, 9.05))
             print(r.status_code)
