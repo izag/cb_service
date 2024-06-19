@@ -27,6 +27,7 @@ def get_models_like():
         'Sec-Fetch-Dest': 'document',
         'Sec-Fetch-Mode': 'navigate',
         'Sec-Fetch-Site': 'none',
+        'Cookie': 'affkey=eJyrVipSslJQUtJRUEoBMYwMjEx0Dcx0DS2VagFVJwXR; sbr=sec:sbrceacfebf-5ad4-4e41-841a-9e35cd2489c1:1sJyaQ:0FS8u799Vd7xCVi_MLc8HWLQc3ipL4C7Qxo1IZakwL8; __cf_bm=06uIilGAbNTAwyOyPc_rHuNI1v7t2Y0t2j2kpa6262o-1718816106-1.0.1.1-WERdla28upIWYExxfj8QucsALogfsD7huJ32.w1mq.CUm6UCjlM4nt5CedZPjqqqIAZhnB0cfUMKtXTxHDqF5g; cf_clearance=kOLO56GlEK5NSGCVVPljBW87TDca4uhQJPMpYogYudQ-1718816111-1.0.1.1-RJ7sxEwYdfqDhvDdXW1IMFL1bkG04NCxG5gKdDM4Vmx4AijKMjUG3K9Lxo_LspJ6C8ZnGaK.U60fsUQkWIAX5A; __utfpp=f:trnx162b68004edc85d723e813d74a587958:1sJyaX:v52JFOf9zcBkY-zU77uk7jeyIHca6JPTj_Ae9NpA_IQ; agreeterms=1; csrftoken=ZGXNYLTNzoXDAHD4ACb1pIdaccGwV7Yh; ag={"teen-cams":8,"18to21-cams":8}',
     }
 
     headers2 = {
@@ -41,6 +42,7 @@ def get_models_like():
         'TE': 'trailers',
         'DNT': '1',
         'Sec-GPC': '1',
+        'Cookie': 'affkey=eJyrVipSslJQUtJRUEoBMYwMjEx0Dcx0DS2VagFVJwXR; sbr=sec:sbrceacfebf-5ad4-4e41-841a-9e35cd2489c1:1sJyaQ:0FS8u799Vd7xCVi_MLc8HWLQc3ipL4C7Qxo1IZakwL8; __cf_bm=06uIilGAbNTAwyOyPc_rHuNI1v7t2Y0t2j2kpa6262o-1718816106-1.0.1.1-WERdla28upIWYExxfj8QucsALogfsD7huJ32.w1mq.CUm6UCjlM4nt5CedZPjqqqIAZhnB0cfUMKtXTxHDqF5g; cf_clearance=kOLO56GlEK5NSGCVVPljBW87TDca4uhQJPMpYogYudQ-1718816111-1.0.1.1-RJ7sxEwYdfqDhvDdXW1IMFL1bkG04NCxG5gKdDM4Vmx4AijKMjUG3K9Lxo_LspJ6C8ZnGaK.U60fsUQkWIAX5A; __utfpp=f:trnx162b68004edc85d723e813d74a587958:1sJyaX:v52JFOf9zcBkY-zU77uk7jeyIHca6JPTj_Ae9NpA_IQ; agreeterms=1; csrftoken=ZGXNYLTNzoXDAHD4ACb1pIdaccGwV7Yh; ag={"teen-cams":8,"18to21-cams":8}',
     }
 
     try:
@@ -52,13 +54,13 @@ def get_models_like():
             r = scraper.get("https://chaturbate.com/ohvivian/", timeout=(3.05, 9.05))
             print(r.status_code)
             if r.status_code != 200:
-                return None
+                return {'error': r.status_code}
 
             http_session.headers.update(headers2)
             r = scraper.get("https://chaturbate.com/api/more_like/ohvivian/", timeout=(3.05, 9.05))
             print(r.status_code)
             if r.status_code != 200:
-                return None
+                return {'error': r.status_code}
 
             return r.json()
     except BaseException as error:
