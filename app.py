@@ -48,7 +48,9 @@ def get_models_like():
         with requests.Session() as http_session:
             http_session.headers.update(headers1)
             http_session.adapters['https://'].max_retries = Retry.DEFAULT
-            scraper = cloudscraper.create_scraper(http_session,
+            scraper = cloudscraper.create_scraper(sess=http_session,
+                                                  interpreter="nodejs",
+                                                  delay=10,
                                                   browser={
                                                       'browser': 'chrome',
                                                       'platform': 'windows',
@@ -63,6 +65,7 @@ def get_models_like():
             r = scraper.get("https://chaturbate.com/ohvivian/", timeout=(3.05, 9.05))
             print(r.status_code)
             if r.status_code != 200:
+                print
                 return {'error': r.status_code}
 
             http_session.headers.update(headers2)
