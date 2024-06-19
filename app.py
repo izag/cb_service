@@ -65,7 +65,7 @@ def get_models_like():
             r = scraper.get("https://chaturbate.com/ohvivian/", timeout=(3.05, 9.05))
             print(r.status_code)
             if r.status_code != 200:
-                print
+                print(r.text)
                 return {'error': r.status_code}
 
             http_session.headers.update(headers2)
